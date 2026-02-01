@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>💖 Sana Bir Sürpriz</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      font-family: "Segoe UI", sans-serif;
+      color: white;
+      overflow-y: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .wrapper {
+      padding: 40px 0;
+    }
+
+    .letter {
+      width: 440px;
+      padding: 30px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 50px rgba(255, 80, 150, 0.4);
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff9acb;
+      margin-bottom: 20px;
+    }
+
+    .text {
+      font-size: 1.15em;
+      line-height: 1.6;
+      min-height: 180px;
+    }
+
+    /* LED HEART */
+    .neon-heart {
+      width: 120px;
+      height: 110px;
+      position: relative;
+      margin: 40px auto;
+      transform: rotate(-45deg);
+      background: #ff2d95;
+      box-shadow:
+        0 0 10px #ff2d95,
+        0 0 25px #ff2d95,
+        0 0 50px #ff2d95;
+      animation: pulse 1.5s infinite;
+      opacity: 0;
+      transition: opacity 1s ease;
+      display: none;
+    }
+
+    .neon-heart::before,
+    .neon-heart::after {
+      content: "";
+      width: 120px;
+      height: 120px;
+      background: #ff2d95;
+      border-radius: 50%;
+      position: absolute;
+      box-shadow:
+        0 0 10px #ff2d95,
+        0 0 25px #ff2d95,
+        0 0 50px #ff2d95;
+    }
+
+    .neon-heart::before {
+      top: -60px;
+      left: 0;
+    }
+
+    .neon-heart::after {
+      left: 60px;
+      top: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: rotate(-45deg) scale(1); }
+      50% { transform: rotate(-45deg) scale(1.08); }
+    }
+
+    button {
+      display: none;
+      margin: 20px auto 0;
+      padding: 12px 28px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      background: #ff4f9a;
+      color: white;
+      box-shadow: 0 0 20px #ff4f9a;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .surprise {
+      display: none;
+      text-align: center;
+      margin-top: 30px;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    .surprise img {
+      width: 220px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 120, 180, 0.6);
+    }
+
+    .surprise p {
+      margin-top: 15px;
+      font-size: 1.5em;
+      color: #ff7eb3;
+      text-shadow:
+        0 0 8px #ff7eb3,
+        0 0 20px #ff4f9a;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="letter">
+      <h1>Sevgilim 💖</h1>
+
+      <div id="text" class="text"></div>
+
+      <div id="heart" class="neon-heart"></div>
+
+      <button id="surpriseBtn" onclick="showSurprise()">🎁 Sürpriz</button>
+
+      <div id="surprise" class="surprise">
+        <img src="https://i.pinimg.com/1200x/e8/f2/1c/e8f21c7d299fb1f4bbee55391b546373.jpg">
+        <p>
+          Rem’de<br>
+          Sevgililer Gününü Kutluyormuş Bu Arada...
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const message = `
+Bazen kelimeler yetmez…
+Ama yine de denemek istedim.
+
+Sen hayatıma girdiğinden beri
+her şey daha sıcak,
+daha anlamlı.
+
+Bu küçük mektup
+sana hissettiklerimin
+bir parçası sadece.
+
+İyi ki varsın.
+`;
+
+    const textEl = document.getElementById("text");
+    const heart = document.getElementById("heart");
+    const btn = document.getElementById("surpriseBtn");
+    let i = 0;
+
+    function typeWriter() {
+      if (i < message.length) {
+        textEl.innerHTML += message[i] === "\n" ? "<br>" : message[i];
+        i++;
+        setTimeout(typeWriter, 40);
+      } else {
+        // Yazı bitince kalp gelsin
+        heart.style.display = "block";
+        setTimeout(() => heart.style.opacity = "1", 50);
+
+        // Kalpten sonra buton
+        setTimeout(() => {
+          btn.style.display = "block";
+        }, 1200);
+      }
+    }
+
+    typeWriter();
+
+    function showSurprise() {
+      document.getElementById("surprise").style.display = "block";
+      btn.style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
